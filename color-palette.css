@@ -1,0 +1,57 @@
+/* ============================================
+   LOGICLOOM LOGO COLOR PALETTE
+   Extracted from the official LogicLoom white logo design
+   ============================================ */
+
+:root {
+  /* Primary Logo Colors */
+  --logo-blue:        #4285F4;     /* Deep blue - PRIMARY ACCENT */
+  --logo-blue-light:  #4285F4;     /* Bright blue */
+  --logo-cyan:        #4285F4;     /* Cyan blue */
+  
+  --logo-orange:      #EA4335;     /* Orange - SECONDARY ACCENT */
+  --logo-yellow:      #FBBC05;     /* Yellow */
+  --logo-amber:       #EA4335;     /* Amber */
+  
+  --logo-magenta:     #34A853;     /* Magenta - TERTIARY ACCENT */
+  --logo-pink:        #34A853;     /* Pink */
+  --logo-rose:        #34A853;     /* Rose */
+  
+  /* Neutral Colors */
+  --logo-grey-dark:   #374151;     /* Dark grey */
+  --logo-grey-medium: #6b7280;     /* Medium grey */
+  --logo-grey-light:  #9ca3af;     /* Light grey */
+  --logo-white:       #ffffff;     /* White */
+  --logo-black:       #000000;     /* Black */
+  
+  /* Gradient Combinations */
+  --logo-gradient-1: linear-gradient(135deg, 
+    var(--logo-blue) 0%, 
+    var(--logo-blue-light) 25%, 
+    var(--logo-orange) 50%, 
+    var(--logo-yellow) 75%, 
+    var(--logo-magenta) 100%);
+    
+  --logo-gradient-2: linear-gradient(45deg, 
+    var(--logo-magenta) 0%, 
+    var(--logo-pink) 33%, 
+    var(--logo-orange) 66%, 
+    var(--logo-yellow) 100%);
+    
+  --logo-gradient-3: linear-gradient(90deg, 
+    var(--logo-blue) 0%, 
+    var(--logo-cyan) 50%, 
+    var(--logo-blue-light) 100%);
+}
+
+/* Logo Color Swatches for Reference */
+.logo-swatch-blue        { background: var(--logo-blue); }
+.logo-swatch-blue-light  { background: var(--logo-blue-light); }
+.logo-swatch-cyan        { background: var(--logo-cyan); }
+.logo-swatch-orange      { background: var(--logo-orange); }
+.logo-swatch-yellow      { background: var(--logo-yellow); }
+.logo-swatch-magenta     { background: var(--logo-magenta); }
+.logo-swatch-pink        { background: var(--logo-pink); }
+.logo-swatch-grey-dark   { background: var(--logo-grey-dark); }
+.logo-swatch-grey-light  { background: var(--logo-grey-light); }
+.logo-swatch-white       { background: var(--logo-white); border: 1px solid #e5e7eb; }
