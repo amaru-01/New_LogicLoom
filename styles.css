@@ -89,6 +89,12 @@ img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; }
 
+/* ============ CUSTOM SCROLLBAR ============ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan-500); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan-400); }
+
 /* ============ TYPOGRAPHY ============ */
 h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
