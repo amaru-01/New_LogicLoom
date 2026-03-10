@@ -7,43 +7,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Core Palette */
-  --bg:        #080b0f;
-  --bg2:       #0e1318;
-  --bg3:       #141a21;
-  --surface:   #1a2230;
-  --surface2:  #202c3a;
+  /* Core Palette - Slate/Cyan/Blue/Emerald */
+  --bg:        #020617;
+  --bg2:       #0f172a;
+  --bg3:       #1e293b;
+  --surface:   #1e293b;
+  --surface2:  #334155;
 
-  /* Logo Color Palette */
-  --logo-blue:     #1e40af;
-  --logo-blue-light: #3b82f6;
-  --logo-orange:   #f59e0b;
-  --logo-yellow:   #fbbf24;
-  --logo-magenta:  #ec4899;
-  --logo-pink:     #f472b6;
-  --logo-grey-dark: #374151;
-  --logo-grey-light: #9ca3af;
-  --logo-white:    #ffffff;
+  /* Accent Colors - Cyan/Blue/Emerald */
+  --cyan-400:     #22d3ee;
+  --cyan-300:     #67e8f9;
+  --cyan-500:     #06b6d4;
+  --blue-400:     #60a5fa;
+  --blue-500:     #3b82f6;
+  --emerald-400:  #34d399;
+
+  /* Legacy accent mapping for compatibility */
+  --accent:    var(--cyan-400);
+  --accent2:   var(--blue-500);
+  --accent3:   var(--emerald-400);
+  --accent-dim: rgba(34, 211, 238, 0.12);
+  --accent-glow: rgba(34, 211, 238, 0.25);
 
   /* Borders */
-  --border:    rgba(255,255,255,0.07);
-  --border2:   rgba(255,255,255,0.12);
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.15);
 
   /* Text */
-  --text:      #e8edf3;
-  --text-2:    #a8b4c2;
-  --text-3:    #647282;
+  --text:      #ffffff;
+  --text-2:    #cbd5e1;
+  --text-3:    #94a3b8;
 
-  /* Accent — LogicLoom Logo Colors */
-  --accent:    #4285F4;
-  --accent2:   #EA4335;
-  --accent3:   #34A853;
-  --accent-dim: rgba(52,133,83,0.12);
-  --accent-glow: rgba(52,133,83,0.25);
-
-  /* Secondary — Warm Amber */
-  --amber:     #f59e0b;
-  --amber-dim: rgba(245,158,11,0.1);
+  /* Secondary — Cyan dim */
+  --amber:     var(--cyan-400);
+  --amber-dim: rgba(34, 211, 238, 0.1);
 
   /* State */
   --green:     #22c55e;
@@ -60,7 +57,7 @@
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
   --shadow:    0 8px 32px rgba(0,0,0,0.45);
   --shadow-lg: 0 24px 64px rgba(0,0,0,0.55);
-  --shadow-accent: 0 8px 32px rgba(0,212,170,0.18);
+  --shadow-accent: 0 8px 32px rgba(34, 211, 238, 0.18);
 
   /* Typography */
   --font-display: 'Cabinet Grotesk', 'Instrument Sans', sans-serif;
@@ -260,10 +257,8 @@ em { font-style: normal; color: var(--accent); }
   flex-shrink: 0;
 }
 .logo-mark {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, var(--logo-blue) 0%, var(--logo-blue-light) 25%, var(--logo-orange) 50%, var(--logo-yellow) 75%, var(--logo-magenta) 100%);
-  border-radius: 12px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -271,6 +266,10 @@ em { font-style: normal; color: var(--accent); }
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 .logo-mark img {
   width: 200px;
@@ -288,6 +287,7 @@ em { font-style: normal; color: var(--accent); }
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--logo-white);
+  display: none;
 }
 .logo-text span { color: var(--logo-orange); }
 .logo:hover .logo-mark {
@@ -305,25 +305,27 @@ em { font-style: normal; color: var(--accent); }
 
 /* Logo variations for different contexts */
 .logo.footer .logo-mark {
-  width: 36px;
-  height: 36px;
+  width: 70px;
+  height: 70px;
   font-size: 1rem;
 }
 
 .logo.footer .logo-text {
   font-size: 1.1rem;
+  display: none;
 }
 
 /* Mobile logo adjustments */
 @media (max-width: 768px) {
   .logo-mark {
-    width: 36px;
-    height: 36px;
+    width: 70px;
+    height: 70px;
     font-size: 1rem;
   }
   
   .logo-text {
     font-size: 1.1rem;
+    display: none;
   }
 }
 
@@ -1408,6 +1410,16 @@ em { font-style: normal; color: var(--accent); }
   font-size: 0.92rem;
 }
 .form-success.show { display: flex; align-items: center; gap: 0.5rem; }
+.form-error {
+  display: none;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.25);
+  color: var(--red);
+  padding: 1rem 1.25rem;
+  border-radius: var(--r-md);
+  font-size: 0.92rem;
+}
+.form-error.show { display: flex; align-items: center; gap: 0.5rem; }
 
 .contact-info h2 { margin-bottom: 1.75rem; }
 .contact-cards { display: flex; flex-direction: column; gap: 0.85rem; }
@@ -1516,4 +1528,16 @@ em { font-style: normal; color: var(--accent); }
   h1 { font-size: 2.2rem; }
   h2 { font-size: 1.75rem; }
   .svc-card { padding: 1.75rem; }
+}
+
+/* ============ FORM ANIMATIONS ============ */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

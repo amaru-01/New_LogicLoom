@@ -107,12 +107,26 @@ document.querySelectorAll('.reveal').forEach(el => {
 });
 
 // ===== CONTACT FORM =====
-function handleFormSubmit() {
+// ===== CONTACT FORM =====
+function handleFormSubmit(event) {
+  console.log('handleFormSubmit called with event:', event); // Debug log
+
+  // Handle case where event might be undefined
+  if (event && typeof event.preventDefault === 'function') {
+    event.preventDefault(); // Prevent default form submission
+    console.log('preventDefault called'); // Debug log
+  } else {
+    console.warn('Event is undefined or preventDefault not available'); // Debug log
+  }
+
   const fname   = document.getElementById('fname');
   const email   = document.getElementById('email');
   const message = document.getElementById('message');
+  const submitBtn = document.getElementById('submitBtn');
+  const formSuccess = document.getElementById('formSuccess');
+  const formError = document.getElementById('formError');
 
-  if (!fname || !email || !message) return;
+  if (!fname || !email || !message || !submitBtn) return;
 
   let isValid = true;
   [fname, email, message].forEach(el => {
@@ -141,23 +155,125 @@ function handleFormSubmit() {
     return;
   }
 
-  const btn     = document.querySelector('.form-submit');
-  const success = document.getElementById('formSuccess');
+  // Hide any previous messages
+  if (formSuccess) formSuccess.classList.remove('show');
+  if (formError) formError.classList.remove('show');
 
-  if (btn) {
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    btn.style.opacity = '0.7';
-
-    setTimeout(() => {
-      btn.style.display = 'none';
-      if (success) {
-        success.classList.add('show');
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }, 1400);
+  // Show loading state
+  if (submitBtn) {
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+    submitBtn.classList.add('loading');
   }
+
+  // Prepare form data
+  const formData = new FormData(document.getElementById('contactForm'));
+
+  // Send AJAX request
+  fetch('form-handler.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Reset button
+    if (submitBtn) {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+    }
+
+    if (data.success) {
+      // Success animation
+      if (submitBtn) {
+        submitBtn.textContent = '✅ Sent!';
+        submitBtn.style.background = '#25d366';
+      }
+
+      if (formSuccess) {
+        formSuccess.textContent = data.message;
+        formSuccess.classList.add('show');
+        formSuccess.style.animation = 'slideInUp 0.5s ease-out';
+      }
+
+      // Reset form after success
+      setTimeout(() => {
+        document.getElementById('contactForm').reset();
+        if (submitBtn) {
+          submitBtn.textContent = 'Send Message →';
+          submitBtn.style.background = '';
+        }
+        if (formSuccess) {
+          formSuccess.classList.remove('show');
+        }
+      }, 4000);
+
+    } else {
+      // Error animation
+      if (submitBtn) {
+        submitBtn.textContent = '❌ Try Again';
+        submitBtn.style.background = 'var(--red)';
+      }
+
+      if (formError) {
+        formError.textContent = data.message;
+        formError.classList.add('show');
+        formError.style.animation = 'slideInUp 0.5s ease-out';
+      }
+
+      // Reset button after error
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.textContent = 'Send Message →';
+          submitBtn.style.background = '';
+        }
+        if (formError) {
+          formError.classList.remove('show');
+        }
+      }, 3000);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+
+    // Reset button
+    if (submitBtn) {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitBtn.textContent = '❌ Error - Try Again';
+      submitBtn.style.background = 'var(--red)';
+    }
+
+    if (formError) {
+      formError.textContent = 'Network error. Please check your connection and try again.';
+      formError.classList.add('show');
+      formError.style.animation = 'slideInUp 0.5s ease-out';
+    }
+
+    // Reset button after error
+    setTimeout(() => {
+      if (submitBtn) {
+        submitBtn.textContent = 'Send Message →';
+        submitBtn.style.background = '';
+      }
+      if (formError) {
+        formError.classList.remove('show');
+      }
+    }, 3000);
+  });
+
+  return false; // Prevent default form submission
 }
+
+// Attach form submit handler
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', handleFormSubmit);
+  }
+});
 
 // Inject shake keyframe
 const style = document.createElement('style');
