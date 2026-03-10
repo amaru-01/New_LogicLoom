@@ -6,56 +6,662 @@
   <title>Contact Us | LogicLoom Kenya</title>
   <meta name="description" content="Get in touch with LogicLoom — call, WhatsApp, email, or visit our offices in Nairobi, Mombasa, or Kisumu."/>
   <link rel="icon" type="image/png" href="LogicLoom_Favicon.png"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,500,400&display=swap"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #020617;
+      --bg-surface: #0f172a;
+      --bg-elevated: #1e293b;
+      --cyan-400: #22d3ee;
+      --cyan-300: #67e8f9;
+      --cyan-500: #06b6d4;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --emerald-400: #34d399;
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan-500); border-radius: 3px; }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(2, 6, 23, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.1em;
+    }
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      margin-right: 0.75rem;
+      background: #fff;
+      border-radius: 12px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo span { color: var(--cyan-400); position: relative; }
+    .logo span::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan-400);
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--cyan-400);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 100px;
+      background: var(--cyan-400);
+      color: var(--bg-deep);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+    .header-cta:hover::before {
+      transform: translateX(100%);
+    }
+    .header-cta:hover {
+      background: var(--cyan-300);
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+    .mobile-menu a.active { color: var(--cyan-400); }
+    .mobile-cta {
+      background: var(--cyan-400);
+      color: var(--bg-deep);
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      text-align: center;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .header-cta { display: none; }
+    }
+
+    /* Page Hero Mini */
+    .page-hero-mini {
+      position: relative;
+      padding: 4rem 0;
+      text-align: center;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero-mini::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.05), transparent 60%);
+      pointer-events: none;
+    }
+    .page-hero-mini .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cyan-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero-mini .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1.5px;
+      background: var(--cyan-400);
+      border-radius: 2px;
+    }
+    .page-hero-mini h1 {
+      margin-top: 1rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      position: relative;
+      z-index: 1;
+    }
+    .page-hero-mini p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Contact Section */
+    .contact-section { padding: 5rem 0; }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    @media (max-width: 900px) {
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* Form Styles */
+    .contact-form-wrap {
+      padding: 2.5rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .contact-form-wrap h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .form-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: rgba(34, 211, 238, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-faint);
+    }
+    .form-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+    }
+    .form-group select option {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      background: var(--cyan-400);
+      color: var(--bg-deep);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: var(--cyan-300);
+      box-shadow: 0 0 40px rgba(34, 211, 238, 0.25);
+      transform: translateY(-2px);
+    }
+    .form-success {
+      display: none;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 0.75rem;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+      color: var(--emerald-400);
+      font-size: 0.9rem;
+    }
+    .form-success.visible { display: block; }
+
+    /* Contact Info */
+    .contact-info h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+    .contact-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.3s;
+    }
+    .contact-card:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+    }
+    .contact-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .contact-card strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .contact-card a {
+      font-size: 0.85rem;
+      color: var(--cyan-400);
+      text-decoration: none;
+    }
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+    .contact-card span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .offices-heading {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .office-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .office-item {
+      padding: 1.25rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .office-item strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .office-item span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      background: #25d366;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 0 2rem;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 900px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+    .footer-brand p {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .footer-socials a:hover {
+      border-color: var(--cyan-400);
+      color: var(--cyan-400);
+    }
+    .footer-col h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 0;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover {
+      color: var(--cyan-400);
+    }
+    .footer-col p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-bottom-links a:hover {
+      color: var(--cyan-400);
+    }
+
+    /* Floating WhatsApp */
+    .floating-wa {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    .floating-wa:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ===== NAV ===== -->
-  <header class="nav-header" id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="logo">
-        <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
-        <span class="logo-text">Logic<span>Loom</span></span>
-      </a>
-      <nav class="nav-links">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
+          Logic<span>Loom</span>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+          </ul>
+        </nav>
+        <a href="contact.html" class="header-cta">Get a Quote <span>→</span></a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="contact.html" class="active">Contact</a>
-      </nav>
-      <div class="nav-actions">
-        <a href="contact.html" class="nav-cta">Get a Quote</a>
+        <a href="contact.html" class="mobile-cta">Get a Quote</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="contact.html" class="active">Contact</a>
-      <a href="contact.html" class="mobile-cta">Get a Quote</a>
     </div>
   </header>
 
-  <!-- ===== PAGE HERO MINI ===== -->
+  <!-- Page Hero Mini -->
   <div class="page-hero-mini">
     <div class="eyebrow">Let's Talk</div>
     <h1>Get in Touch</h1>
     <p>Free consultation. No commitment. Just honest advice from our IT experts.</p>
   </div>
 
-  <!-- ===== CONTACT SECTION ===== -->
-  <section class="section contact-section">
+  <!-- Contact Section -->
+  <section class="contact-section">
     <div class="container">
       <div class="contact-inner">
 
-        <!-- FORM -->
+        <!-- Form -->
         <div class="contact-form-wrap">
           <h2>Send Us a Message</h2>
           <p class="form-sub">We typically respond within 2 business hours.</p>
@@ -100,7 +706,7 @@
           </div>
         </div>
 
-        <!-- CONTACT INFO -->
+        <!-- Contact Info -->
         <div class="contact-info">
           <h2>Contact Details</h2>
           <div class="contact-cards">
@@ -129,7 +735,7 @@
               <div class="contact-card-icon">🕐</div>
               <div>
                 <strong>Business Hours</strong>
-                <span>Mon–Fri: 8am – 6pm<br/>Sat: 9am – 2pm<br/>24/7 Emergency Support</span>
+                <span>Mon–Fri: 8am – 6pm<br>Sat: 9am – 2pm<br>24/7 Emergency Support</span>
               </div>
             </div>
           </div>
@@ -137,8 +743,8 @@
           <p class="offices-heading">Our Office</p>
           <div class="office-list">
             <div class="office-item">
-              <strong>🏢 Nairobi (HQ)</strong>
-              <span>Suite 57 Lower Duplex<br/>Lowerhill Road, Nairobi, Kenya</span>
+              <strong>Nairobi (HQ)</strong>
+              <span>Suite 57 Lower Duplex<br>Lowerhill Road, Nairobi, Kenya</span>
             </div>
           </div>
 
@@ -152,55 +758,83 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="index.html" class="logo footer">
-          <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
-          <span class="logo-text">Logic<span>Loom</span></span>
-        </a>
-        <p>Kenya's trusted IT solutions provider — hardware, software, and support for businesses that mean business.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Twitter">𝕏</a>
-          <a href="#" aria-label="Facebook">f</a>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="font-size: 1.3rem;">
+            <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
+            Logic<span>Loom</span>
+          </a>
+          <p>Kenya's trusted IT solutions provider — hardware, software, and support for businesses that mean business.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="Facebook">f</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="services.html#hardware">IT Hardware</a>
+          <a href="services.html#support">IT Support</a>
+          <a href="services.html#software">Software Solutions</a>
+          <a href="services.html#shop">Tech Shop</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><strong>Nairobi (HQ)</strong><br>Suite 57 Lower Duplex, Lowerhill Road</p>
+          <p><a href="tel:+254757880000">+254 757 880 000</a></p>
+          <p><a href="mailto:info@logicloomke.com">info@logicloomke.com</a></p>
+          <p><a href="https://wa.me/254757880000">WhatsApp Chat</a></p>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="services.html#hardware">IT Hardware</a>
-        <a href="services.html#support">IT Support</a>
-        <a href="services.html#software">Software Solutions</a>
-        <a href="services.html#shop">Tech Shop</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-        <a href="#">Careers</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <p>📍 <strong>Nairobi (HQ)</strong><br/>Suite 57 Lower Duplex, Lowerhill Road</p>
-        <p>📞 <a href="tel:+254757880000">+254 757 880 000</a></p>
-        <p>✉️ <a href="mailto:info@logicloomke.com">info@logicloomke.com</a></p>
-        <p>💬 <a href="https://wa.me/254757880000">WhatsApp Chat</a></p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 LogicLoom. All rights reserved. Registered in Kenya.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LogicLoom. All rights reserved. Registered in Kenya.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Floating WhatsApp -->
   <a href="https://wa.me/254757880000" class="floating-wa" target="_blank" aria-label="Chat on WhatsApp">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <script src="main.js"></script>
+  <script>
+    function handleFormSubmit() {
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('formSuccess');
+      const fname = document.getElementById('fname').value;
+      const lname = document.getElementById('lname').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      if (fname && lname && email && message) {
+        success.classList.add('visible');
+        form.reset();
+        setTimeout(() => {
+          success.classList.remove('visible');
+        }, 5000);
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    }
+
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>

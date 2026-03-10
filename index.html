@@ -6,188 +6,1316 @@
   <title>LogicLoom | IT Hardware, Support & Software Solutions in Nairobi, Kenya</title>
   <meta name="description" content="LogicLoom is Kenya's trusted IT solutions partner — offering hardware, software development, and 24/7 support services across Nairobi, Mombasa, and Kisumu."/>
   <link rel="icon" type="image/png" href="LogicLoom_Favicon.png"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <!-- Cabinet Grotesk via CDN -->
-  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,500,400&display=swap"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #020617;
+      --bg-surface: #0f172a;
+      --bg-elevated: #1e293b;
+      --cyan-400: #22d3ee;
+      --cyan-300: #67e8f9;
+      --cyan-500: #06b6d4;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --emerald-400: #34d399;
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-faint: #64748b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan-500); border-radius: 3px; }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes border-travel {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(2, 6, 23, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.1em;
+    }
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      margin-right: 0.75rem;
+      background: #fff;
+      border-radius: 12px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo span { color: var(--cyan-400); position: relative; }
+    .logo span::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyan-400);
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--cyan-400);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-primary);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 100px;
+      background: var(--cyan-400);
+      color: var(--bg-deep);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+    .header-cta:hover::before {
+      transform: translateX(100%);
+    }
+    .header-cta:hover {
+      background: var(--cyan-300);
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+    .mobile-menu a.active { color: var(--cyan-400); }
+    .mobile-cta {
+      background: var(--cyan-400);
+      color: var(--bg-deep);
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      text-align: center;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .header-cta { display: none; }
+    }
+
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+    .hero-bg .orb-1 {
+      width: 600px;
+      height: 600px;
+      top: -15%;
+      right: -5%;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.15), transparent 70%);
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero-bg .orb-2 {
+      width: 500px;
+      height: 500px;
+      bottom: -10%;
+      left: -10%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12), transparent 70%);
+      animation: float 10s ease-in-out infinite 2s;
+    }
+    .hero-bg .orb-3 {
+      width: 300px;
+      height: 300px;
+      top: 40%;
+      left: 30%;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.06), transparent 70%);
+      animation: float 12s ease-in-out infinite 4s;
+    }
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 5rem 0 4rem;
+    }
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 0; }
+      .hero { min-height: auto; }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem 0.4rem 0.6rem;
+      border-radius: 100px;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      background: rgba(34, 211, 238, 0.06);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--cyan-300);
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald-400);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      margin-top: 1.5rem;
+      font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      animation: fadeUp 0.7s ease-out 0.1s both;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(135deg, var(--cyan-400), var(--blue-400));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 520px;
+      animation: fadeUp 0.7s ease-out 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.2rem;
+      animation: fadeUp 0.7s ease-out 0.3s both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      background: var(--cyan-400);
+      color: var(--bg-deep);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: var(--cyan-300);
+      box-shadow: 0 0 40px rgba(34, 211, 238, 0.25);
+      transform: translateY(-2px);
+    }
+    .btn-primary .arrow {
+      transition: transform 0.3s;
+    }
+    .btn-primary:hover .arrow {
+      transform: translateX(3px);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      background: transparent;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid var(--border-hover);
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.7s ease-out 0.4s both;
+    }
+    @media (max-width: 640px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    .hero-stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero-stat-value.cyan { color: var(--cyan-400); }
+    .hero-stat-label {
+      margin-top: 0.3rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .hero-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+    .panel-card {
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    .panel-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+    .panel-card.glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+    }
+    .panel-card.featured {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.06), rgba(59, 130, 246, 0.04));
+      border-color: rgba(34, 211, 238, 0.15);
+    }
+    .panel-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan-400), var(--blue-500), var(--cyan-400));
+      background-size: 200% 100%;
+      animation: border-travel 3s ease infinite;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .panel-badge {
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--emerald-400);
+      letter-spacing: 0.03em;
+    }
+    .panel-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .panel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .panel-tag {
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .panel-tag:hover {
+      border-color: rgba(34, 211, 238, 0.3);
+      color: var(--cyan-300);
+    }
+
+    .panel-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .panel-mini {
+      padding: 1.3rem;
+    }
+    .panel-mini-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .panel-mini-value {
+      margin-top: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .panel-mini-desc {
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--cyan-400);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 1.5px;
+      background: var(--cyan-400);
+      border-radius: 2px;
+    }
+    .section-title {
+      margin-top: 0.8rem;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+    .section-desc {
+      margin-top: 1rem;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .trust-bar {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      overflow: hidden;
+    }
+    .marquee {
+      display: flex;
+      gap: 3rem;
+      animation: scroll 30s linear infinite;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .marquee-item::before {
+      content: '◆';
+      color: var(--cyan-500);
+      font-size: 0.6rem;
+    }
+
+    .services {
+      padding: 6rem 0;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 3.5rem;
+    }
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    .service-card {
+      padding: 2rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(34, 211, 238, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .service-card:hover::before {
+      opacity: 1;
+    }
+    .service-card:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    .service-card.highlight {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(59, 130, 246, 0.04));
+      border-color: rgba(34, 211, 238, 0.12);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      color: var(--cyan-400);
+      margin-bottom: 1.3rem;
+      font-size: 1.2rem;
+    }
+    .service-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .service-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+    .service-desc {
+      margin-top: 0.7rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .service-list {
+      list-style: none;
+      margin-top: 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .service-list li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .service-list li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--cyan-500);
+      flex-shrink: 0;
+    }
+
+    .why-section {
+      padding: 6rem 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .why-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .why-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .why-media {
+      position: relative;
+    }
+    .why-media img {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+    }
+    .why-badge {
+      position: absolute;
+      bottom: -1rem;
+      right: -1rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--cyan-400);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .badge-text strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    .badge-text span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .why-list {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.3s;
+    }
+    .why-item:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+    }
+    .why-item-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .why-item-text strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .why-item-text span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .locations-section {
+      padding: 6rem 0;
+    }
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 768px) {
+      .locations-grid { grid-template-columns: 1fr; }
+    }
+    .location-card {
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.4s;
+    }
+    .location-card:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+      transform: translateY(-4px);
+    }
+    .location-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .location-body {
+      padding: 1.5rem;
+    }
+    .location-body h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .location-body p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .testimonials-section {
+      padding: 6rem 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .t-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    .t-card {
+      padding: 2rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.4s;
+    }
+    .t-card.featured {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(59, 130, 246, 0.04));
+      border-color: rgba(34, 211, 238, 0.15);
+    }
+    .t-card:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+      transform: translateY(-4px);
+    }
+    .t-stars {
+      color: var(--cyan-400);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .t-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .t-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .t-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan-500), var(--blue-500));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .t-author-info strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    .t-author-info span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .cta-banner {
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.05), transparent 60%);
+      pointer-events: none;
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cta-inner h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+      margin: 1rem 0;
+    }
+    .cta-inner p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      background: #25d366;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 0 2rem;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 900px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+    .footer-brand p {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .footer-socials a:hover {
+      border-color: var(--cyan-400);
+      color: var(--cyan-400);
+    }
+    .footer-col h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 0;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover {
+      color: var(--cyan-400);
+    }
+    .footer-col p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-bottom-links a:hover {
+      color: var(--cyan-400);
+    }
+
+    .floating-wa {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    .floating-wa:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.35s; }
+  </style>
 </head>
 <body>
 
-  <!-- ===== NAV ===== -->
-  <header class="nav-header" id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="logo">
-        <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
-        <span class="logo-text">Logic<span>Loom</span></span>
-      </a>
-      <nav class="nav-links">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
+          Logic<span>Loom</span>
+        </a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <a href="contact.html" class="header-cta">Get a Quote <span class="arrow">→</span></a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="contact.html">Contact</a>
-      </nav>
-      <div class="nav-actions">
-        <a href="contact.html" class="nav-cta">Get a Quote</a>
+        <a href="contact.html" class="mobile-cta">Get a Quote</a>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="contact.html">Contact</a>
-      <a href="contact.html" class="mobile-cta">Get a Quote</a>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-bg">
-      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1800&q=85&auto=format&fit=crop" alt="Server infrastructure"/>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="hero-grid-lines"></div>
     </div>
-    <div class="hero-wrapper">
+    <div class="container">
       <div class="hero-content">
-        <div class="hero-tag">
-          <span class="dot"></span>
-          🇰🇪 Nairobi · Mombasa · Kisumu
-        </div>
-        <h1 class="hero-title">
-          <span class="line">Kenya's Most</span>
-          <span class="line accent-line">Trusted IT</span>
-          <span class="line">Partner</span>
-        </h1>
-        <p class="hero-sub">We power businesses with enterprise-grade hardware, expert support, and custom software — engineered for African enterprises.</p>
-        <div class="hero-actions">
-          <a href="contact.html" class="btn-primary">Free Consultation →</a>
-          <a href="services.html" class="btn-outline">Explore Services</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-num">500+</span>
-            <span class="stat-label">Clients Served</span>
+        <div>
+          <div class="hero-badge"><span class="dot"></span> Nairobi · Mombasa · Kisumu</div>
+          <h1>Kenya's Most <span class="accent">Trusted IT</span> Partner</h1>
+          <p class="hero-desc">We power businesses with enterprise-grade hardware, expert support, and custom software — engineered for African enterprises.</p>
+          <div class="hero-actions">
+            <a href="contact.html" class="btn-primary">Free Consultation <span class="arrow">→</span></a>
+            <a href="services.html" class="btn-outline">Explore Services</a>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">10+</span>
-            <span class="stat-label">Years Experience</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">3</span>
-            <span class="stat-label">Cities</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">24/7</span>
-            <span class="stat-label">Support</span>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-value cyan">500+</div>
+              <div class="hero-stat-label">Clients Served</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">10+</div>
+              <div class="hero-stat-label">Years Experience</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">3</div>
+              <div class="hero-stat-label">Cities</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">24/7</div>
+              <div class="hero-stat-label">Support</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="hero-image">
-        <img src="Images/pexels-nietjuh-796602.jpg" alt="IT Team Collaboration" class="hero-img"/>
+
+        <div class="hero-panel">
+          <div class="panel-card glass featured">
+            <div class="panel-header">
+              <div class="panel-title">Complete IT Solutions</div>
+              <span class="panel-badge">Kenya's #1</span>
+            </div>
+            <p class="panel-desc">From hardware procurement to custom software development — everything your business needs under one roof.</p>
+            <div class="panel-tags">
+              <span class="panel-tag">IT Hardware</span>
+              <span class="panel-tag">24/7 Support</span>
+              <span class="panel-tag">Software Dev</span>
+              <span class="panel-tag">Tech Shop</span>
+            </div>
+          </div>
+          <div class="panel-row">
+            <div class="panel-card glass panel-mini">
+              <div class="panel-mini-label">Response Time</div>
+              <div class="panel-mini-value">2 Hours</div>
+              <p class="panel-mini-desc">Average on-site response in Nairobi CBD.</p>
+            </div>
+            <div class="panel-card glass panel-mini">
+              <div class="panel-mini-label">Certifications</div>
+              <div class="panel-mini-value">CompTIA</div>
+              <p class="panel-mini-desc">Cisco & Microsoft certified engineers.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== TRUST BAR ===== -->
+  <!-- Trust Bar -->
   <div class="trust-bar">
     <div class="marquee">
-      <div class="marquee-inner">
-        <span class="marquee-item">IT Hardware</span>
-        <span class="marquee-item">Software Development</span>
-        <span class="marquee-item">24/7 IT Support</span>
-        <span class="marquee-item">Network Infrastructure</span>
-        <span class="marquee-item">Cloud Solutions</span>
-        <span class="marquee-item">Cybersecurity</span>
-        <span class="marquee-item">Managed Services</span>
-        <span class="marquee-item">Tech Shop</span>
-      </div>
-      <div class="marquee-inner" aria-hidden="true">
-        <span class="marquee-item">IT Hardware</span>
-        <span class="marquee-item">Software Development</span>
-        <span class="marquee-item">24/7 IT Support</span>
-        <span class="marquee-item">Network Infrastructure</span>
-        <span class="marquee-item">Cloud Solutions</span>
-        <span class="marquee-item">Cybersecurity</span>
-        <span class="marquee-item">Managed Services</span>
-        <span class="marquee-item">Tech Shop</span>
-      </div>
+      <span class="marquee-item">IT Hardware</span>
+      <span class="marquee-item">Software Development</span>
+      <span class="marquee-item">24/7 IT Support</span>
+      <span class="marquee-item">Network Infrastructure</span>
+      <span class="marquee-item">Cloud Solutions</span>
+      <span class="marquee-item">Cybersecurity</span>
+      <span class="marquee-item">Managed Services</span>
+      <span class="marquee-item">Tech Shop</span>
+      <span class="marquee-item">IT Hardware</span>
+      <span class="marquee-item">Software Development</span>
+      <span class="marquee-item">24/7 IT Support</span>
+      <span class="marquee-item">Network Infrastructure</span>
+      <span class="marquee-item">Cloud Solutions</span>
+      <span class="marquee-item">Cybersecurity</span>
+      <span class="marquee-item">Managed Services</span>
+      <span class="marquee-item">Tech Shop</span>
     </div>
   </div>
 
-  <!-- ===== SERVICES ===== -->
-  <section class="section services-home">
+  <!-- Services Section -->
+  <section class="services">
     <div class="container">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow">What We Do</div>
-          <h2 class="section-title">End-to-End IT Services<br/>for Growing Businesses</h2>
-        </div>
-        <a href="services.html" class="btn-ghost">View all services <span class="arrow">→</span></a>
+      <div class="reveal">
+        <div class="section-label">Services</div>
+        <h2 class="section-title">End-to-End IT Services<br>for Growing Businesses</h2>
+        <p class="section-desc">Clear offers, stronger positioning, and services built to convert business decision-makers.</p>
       </div>
+
       <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h14v14H4z"/><path d="M9 4V1M15 4V1M4 9h14"/></svg>
+          </div>
+          <div class="service-name">Custom Software Development</div>
+          <p class="service-desc">Design and build secure, scalable applications tailored to your workflows, customers, and reporting needs.</p>
+          <ul class="service-list">
+            <li>Business systems &amp; portals</li>
+            <li>API integrations</li>
+            <li>Workflow automation</li>
+          </ul>
+        </div>
 
-        <a href="services.html#hardware" class="svc-card">
-          <div class="svc-num">01</div>
-          <div class="svc-icon"><img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=200&q=80&auto=format&fit=crop" alt="IT Hardware" class="svc-img"/></div>
-          <div class="svc-body">
-            <h3>IT Hardware</h3>
-            <p>Servers, workstations, networking gear, and storage — sourced, configured, and installed by certified engineers.</p>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 1v4M11 17v4M1 11h4M17 11h4"/><circle cx="11" cy="11" r="5"/></svg>
           </div>
-          <div class="svc-footer">
-            <span class="svc-link">Learn more →</span>
-          </div>
-        </a>
+          <div class="service-name">Cloud &amp; Infrastructure</div>
+          <p class="service-desc">Deploy and manage reliable infrastructure across cloud and hybrid environments with resilience and cost control.</p>
+          <ul class="service-list">
+            <li>Cloud migration</li>
+            <li>Server administration</li>
+            <li>Backup &amp; disaster recovery</li>
+          </ul>
+        </div>
 
-        <a href="services.html#support" class="svc-card">
-          <div class="svc-num">02</div>
-          <div class="svc-icon"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=200&q=80&auto=format&fit=crop" alt="IT Support" class="svc-img"/></div>
-          <div class="svc-body">
-            <h3>IT Support</h3>
-            <p>Round-the-clock help desk, on-site assistance, remote troubleshooting, and proactive network monitoring.</p>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="9" width="12" height="12" rx="2"/><path d="M8 9V6a3 3 0 016 0v3"/><circle cx="11" cy="15" r="1.5"/></svg>
           </div>
-          <div class="svc-footer">
-            <span class="svc-link">Learn more →</span>
-          </div>
-        </a>
+          <div class="service-name">Cybersecurity Services</div>
+          <p class="service-desc">Protect business systems with practical security controls, threat reduction, monitoring, and user awareness.</p>
+          <ul class="service-list">
+            <li>Security assessments</li>
+            <li>Endpoint hardening</li>
+            <li>Access control reviews</li>
+          </ul>
+        </div>
 
-        <a href="services.html#software" class="svc-card">
-          <div class="svc-num">03</div>
-          <div class="svc-icon"><img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=200&q=80&auto=format&fit=crop" alt="Software Solutions" class="svc-img"/></div>
-          <div class="svc-body">
-            <h3>Software Solutions</h3>
-            <p>Custom web apps, mobile apps, and enterprise systems built by our in-house development team.</p>
+        <div class="service-card reveal reveal-delay-4">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="18" height="14" rx="2"/><path d="M8 21h6M11 17v4"/></svg>
           </div>
-          <div class="svc-footer">
-            <span class="svc-link">Learn more →</span>
-          </div>
-        </a>
+          <div class="service-name">Website Design &amp; Optimization</div>
+          <p class="service-desc">Create professional, mobile-first websites that communicate value and convert more visitors into enquiries.</p>
+          <ul class="service-list">
+            <li>UX/UI redesign</li>
+            <li>Landing pages</li>
+            <li>Technical SEO foundations</li>
+          </ul>
+        </div>
 
-        <a href="services.html#shop" class="svc-card">
-          <div class="svc-num">04</div>
-          <div class="svc-icon"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=80&auto=format&fit=crop" alt="Tech Shop" class="svc-img"/></div>
-          <div class="svc-body">
-            <h3>Tech Shop</h3>
-            <p>Laptops, phones, accessories and peripherals from top brands — walk in or order for delivery.</p>
+        <div class="service-card reveal reveal-delay-5">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2a7 7 0 017 7c0 5-7 11-7 11S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           </div>
-          <div class="svc-footer">
-            <span class="svc-link">Shop now →</span>
-          </div>
-        </a>
+          <div class="service-name">Managed IT Support</div>
+          <p class="service-desc">Reduce downtime with responsive support, routine maintenance, monitoring, and structured issue resolution.</p>
+          <ul class="service-list">
+            <li>Helpdesk support</li>
+            <li>Device management</li>
+            <li>Preventive maintenance</li>
+          </ul>
+        </div>
 
+        <div class="service-card highlight reveal reveal-delay-6">
+          <div class="service-icon">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 11l9-9 9 9"/><path d="M4 9v9a2 2 0 002 2h10a2 2 0 002-2V9"/></svg>
+          </div>
+          <div class="service-name">IT Consulting &amp; Strategy</div>
+          <p class="service-desc">Align technology investments with business priorities through roadmaps, audits, and implementation plans.</p>
+          <ul class="service-list">
+            <li>Digital transformation roadmaps</li>
+            <li>Systems selection</li>
+            <li>IT governance support</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== WHY LOGICLOOM ===== -->
-  <section class="section why-section">
+  <!-- Why Section -->
+  <section class="why-section">
     <div class="container">
       <div class="why-inner">
-
-        <div class="why-media">
-          <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=900&q=85&auto=format&fit=crop" alt="IT team at work" class="why-img reveal"/>
-          <div class="why-badge reveal">
+        <div class="why-media reveal">
+          <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=900&q=85&auto=format&fit=crop" alt="IT team at work" />
+          <div class="why-badge reveal reveal-delay-1">
             <div class="badge-icon">🏆</div>
             <div class="badge-text">
               <strong>10+ Years</strong>
@@ -197,72 +1325,73 @@
         </div>
 
         <div class="why-text">
-          <div class="eyebrow">Why Choose Us</div>
-          <h2 class="section-title">Built for the<br/><em>African Enterprise</em></h2>
-          <p class="section-lead">We understand the unique challenges businesses face in Kenya — from power infrastructure to connectivity — and we engineer solutions that thrive in that reality.</p>
+          <div class="reveal">
+            <div class="section-label">Why Choose Us</div>
+            <h2 class="section-title">Built for the<br>African Enterprise</h2>
+            <p class="section-desc">We understand the unique challenges businesses face in Kenya — from power infrastructure to connectivity — and we engineer solutions that thrive in that reality.</p>
+          </div>
           <ul class="why-list">
-            <li class="why-item reveal">
+            <li class="why-item reveal reveal-delay-1">
               <div class="why-item-icon">⚡</div>
               <div class="why-item-text">
                 <strong>Fast Response Times</strong>
                 <span>Average 2-hour on-site response across Nairobi CBD</span>
               </div>
             </li>
-            <li class="why-item reveal">
+            <li class="why-item reveal reveal-delay-2">
               <div class="why-item-icon">🔒</div>
               <div class="why-item-text">
                 <strong>Certified Engineers</strong>
                 <span>CompTIA, Cisco, and Microsoft certified technicians</span>
               </div>
             </li>
-            <li class="why-item reveal">
+            <li class="why-item reveal reveal-delay-3">
               <div class="why-item-icon">💬</div>
               <div class="why-item-text">
                 <strong>WhatsApp Support</strong>
                 <span>Reach us instantly on WhatsApp — no ticketing queues</span>
               </div>
             </li>
-            <li class="why-item reveal">
+            <li class="why-item reveal reveal-delay-4">
               <div class="why-item-icon">🌍</div>
               <div class="why-item-text">
                 <strong>Local Expertise, Global Standards</strong>
-                <span>Kenya-based team with international technology partnerships</span>
+                <span>Kenya-based team with international partnerships</span>
               </div>
             </li>
           </ul>
-          <div class="why-actions">
-            <a href="about.html" class="btn-primary">Meet Our Team →</a>
-            <a href="contact.html" class="btn-ghost">Get in touch <span class="arrow">→</span></a>
+          <div class="hero-actions reveal" style="margin-top: 2rem;">
+            <a href="about.html" class="btn-primary">Meet Our Team <span class="arrow">→</span></a>
+            <a href="contact.html" class="btn-outline">Get in touch</a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ===== LOCATIONS ===== -->
-  <section class="section locations-section">
+  <!-- Locations Section -->
+  <section class="locations-section">
     <div class="container">
-      <div style="text-align:center; margin-bottom: 0;">
-        <div class="eyebrow" style="display:block; text-align:center;">Where We Are</div>
-        <h2 class="section-title">Serving Businesses<br/>Across Kenya</h2>
+      <div style="text-align: center;" class="reveal">
+        <div class="section-label" style="justify-content: center;">Where We Are</div>
+        <h2 class="section-title">Serving Businesses<br>Across Kenya</h2>
       </div>
       <div class="locations-grid">
-        <div class="location-card reveal">
+        <div class="location-card reveal reveal-delay-1">
           <img src="Images/Nairobi City.jpg" alt="Nairobi skyline"/>
           <div class="location-body">
             <h3>Nairobi</h3>
             <p>Our HQ — serving the CBD, Westlands, Upper Hill, and greater Nairobi metro area.</p>
           </div>
         </div>
-        <div class="location-card reveal">
+        <div class="location-card reveal reveal-delay-2">
           <img src="Images/Mombasa City.jpeg" alt="Mombasa coast"/>
           <div class="location-body">
             <h3>Mombasa</h3>
             <p>Full-service branch in the coast region — covering the port area and Mombasa Island businesses.</p>
           </div>
         </div>
-        <div class="location-card reveal">
+        <div class="location-card reveal reveal-delay-3">
           <img src="Images/Kisumu City.jpeg" alt="Lake Victoria Kisumu"/>
           <div class="location-body">
             <h3>Kisumu</h3>
@@ -273,16 +1402,16 @@
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALS ===== -->
-  <section class="section testimonials-section">
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
     <div class="container">
-      <div class="t-header">
-        <div class="eyebrow">Client Stories</div>
+      <div class="t-header reveal">
+        <div class="section-label" style="justify-content: center;">Client Stories</div>
         <h2 class="section-title">What Our Clients Say</h2>
-        <p class="section-lead">Trusted by 500+ businesses across Kenya</p>
+        <p class="section-desc" style="margin: 1rem auto 0; max-width: 400px;">Trusted by 500+ businesses across Kenya</p>
       </div>
       <div class="testimonials-grid">
-        <div class="t-card reveal">
+        <div class="t-card reveal reveal-delay-1">
           <div class="t-stars">★★★★★</div>
           <p class="t-text">"LogicLoom transformed our operations. Their tailored IT solutions boosted our efficiency and their support team is always on hand."</p>
           <div class="t-author">
@@ -293,7 +1422,7 @@
             </div>
           </div>
         </div>
-        <div class="t-card featured reveal">
+        <div class="t-card featured reveal reveal-delay-2">
           <div class="t-stars">★★★★★</div>
           <p class="t-text">"The team is knowledgeable, fast, and genuinely cares about our business. Minimal downtime, maximum productivity. Highly recommended."</p>
           <div class="t-author">
@@ -304,7 +1433,7 @@
             </div>
           </div>
         </div>
-        <div class="t-card reveal">
+        <div class="t-card reveal reveal-delay-3">
           <div class="t-stars">★★★★★</div>
           <p class="t-text">"From custom software to hardware procurement, LogicLoom handles everything. They understand Kenyan business needs better than anyone."</p>
           <div class="t-author">
@@ -319,18 +1448,15 @@
     </div>
   </section>
 
-  <!-- ===== IMAGE GALLERY ===== -->
-  
-
-  <!-- ===== CTA BANNER ===== -->
+  <!-- CTA Banner -->
   <section class="cta-banner">
-    <div class="cta-inner">
-      <div class="eyebrow">Ready to get started?</div>
+    <div class="cta-inner reveal">
+      <div class="section-label" style="justify-content: center;">Ready to get started?</div>
       <h2>Upgrade your IT infrastructure today</h2>
       <p>Talk to our experts — free consultation, no commitment, honest advice.</p>
       <div class="cta-actions">
-        <a href="contact.html" class="btn-primary">Book Free Consultation</a>
-        <a href="https://wa.me/254700000000" class="btn-wa" target="_blank">
+        <a href="contact.html" class="btn-primary">Book Free Consultation <span class="arrow">→</span></a>
+        <a href="https://wa.me/254757880000" class="btn-wa" target="_blank">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp Us
         </a>
@@ -338,55 +1464,82 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="index.html" class="logo footer">
-          <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
-          <span class="logo-text">Logic<span>Loom</span></span>
-        </a>
-        <p>Kenya's trusted IT solutions provider — hardware, software, and support for businesses that mean business.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Twitter">𝕏</a>
-          <a href="#" aria-label="Facebook">f</a>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="font-size: 1.3rem;">
+            <div class="logo-mark"><img src="LogicLoom_Logo_Primary.png" alt="LogicLoom Logo" /></div>
+            Logic<span>Loom</span>
+          </a>
+          <p>Kenya's trusted IT solutions provider — hardware, software, and support for businesses that mean business.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="Facebook">f</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="services.html#hardware">IT Hardware</a>
+          <a href="services.html#support">IT Support</a>
+          <a href="services.html#software">Software Solutions</a>
+          <a href="services.html#shop">Tech Shop</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><strong>Nairobi (HQ)</strong><br>Suite 57 Lower Duplex, Lowerhill Road</p>
+          <p><a href="tel:+254757880000">+254 757 880 000</a></p>
+          <p><a href="mailto:info@logicloomke.com">info@logicloomke.com</a></p>
+          <p><a href="https://wa.me/254757880000">WhatsApp Chat</a></p>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="services.html#hardware">IT Hardware</a>
-        <a href="services.html#support">IT Support</a>
-        <a href="services.html#software">Software Solutions</a>
-        <a href="services.html#shop">Tech Shop</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-        <a href="#">Careers</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <p>📍 <strong></strong>Nairobi (HQ)</strong><br/>Suite 57 Lower Duplex, Lowerhill Road</p>
-        <p>📞 <a href="tel:+254757880000">+254 757 880 000</a></p>
-        <p>✉️ <a href="mailto:info@logicloomke.com">info@logicloomke.com</a></p>
-        <p>💬 <a href="https://wa.me/254757880000">WhatsApp Chat</a></p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 LogicLoom. All rights reserved. Registered in Kenya.</p>
-      <div class="footer-bottom-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LogicLoom. All rights reserved. Registered in Kenya.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Floating WhatsApp -->
   <a href="https://wa.me/254757880000" class="floating-wa" target="_blank" aria-label="Chat on WhatsApp">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <script src="main.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+      });
+    });
+
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
