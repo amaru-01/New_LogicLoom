@@ -501,6 +501,10 @@
       color: var(--text-secondary);
       font-weight: 500;
       transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
     }
     .panel-tag:hover {
       border-color: rgba(34, 211, 238, 0.3);
@@ -912,6 +916,65 @@
       color: var(--text-muted);
     }
 
+    /* Client Logos */
+    .client-logos {
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .client-logos-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+    }
+    .client-logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .client-logo {
+      padding: 0.75rem 1.5rem;
+      background: rgba(34, 211, 238, 0.05);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      border-radius: 8px;
+      color: var(--cyan-400);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+    }
+    .client-logo:hover {
+      background: rgba(34, 211, 238, 0.12);
+      border-color: rgba(34, 211, 238, 0.3);
+      transform: translateY(-2px);
+    }
+    .client-logo svg {
+      height: 24px;
+      width: auto;
+      display: block;
+    }
+    .client-logo.text-logo {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .client-logo.img-logo {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .client-logo.img-logo img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
     .cta-banner {
       padding: 5rem 0;
       text-align: center;
@@ -1138,7 +1201,7 @@
     <div class="container">
       <div class="hero-content">
         <div>
-          <div class="hero-badge"><span class="dot"></span> Nairobi · Mombasa · Kisumu</div>
+          <div class="hero-badge"><span class="dot"></span> Digital solutions that scale</div>
           <h1>Kenya's Most <span class="accent">Trusted IT</span> Partner</h1>
           <p class="hero-desc">We power businesses with enterprise-grade hardware, expert support, and custom software — engineered for African enterprises.</p>
           <div class="hero-actions">
@@ -1173,10 +1236,10 @@
             </div>
             <p class="panel-desc">From hardware procurement to custom software development — everything your business needs under one roof.</p>
             <div class="panel-tags">
-              <span class="panel-tag">IT Hardware</span>
-              <span class="panel-tag">24/7 Support</span>
-              <span class="panel-tag">Software Dev</span>
-              <span class="panel-tag">Tech Shop</span>
+              <a href="services.html#hardware" class="panel-tag">IT Hardware</a>
+              <a href="services.html#support" class="panel-tag">24/7 Support</a>
+              <a href="services.html#software" class="panel-tag">Software Dev</a>
+              <a href="services.html#shop" class="panel-tag">Tech Shop</a>
             </div>
           </div>
           <div class="panel-row">
@@ -1443,6 +1506,17 @@
               <span>CEO, Mombasa Logistics Ltd</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Client Logos -->
+      <div class="client-logos reveal">
+        <p class="client-logos-label">Trusted by leading organizations</p>
+        <div class="client-logos-row">
+          <div class="client-logo" title="Mastercard"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="height: 24px; width: auto;"><title>MasterCard</title><path d="M11.343 18.031c.058.049.12.098.181.146-1.177.783-2.59 1.238-4.107 1.238C3.32 19.416 0 16.096 0 12c0-4.095 3.32-7.416 7.416-7.416 1.518 0 2.931.456 4.105 1.238-.06.051-.12.098-.165.15C9.6 7.489 8.595 9.688 8.595 12c0 2.311 1.001 4.51 2.748 6.031zm5.241-13.447c-1.52 0-2.931.456-4.105 1.238.06.051.12.098.165.15C14.4 7.489 15.405 9.688 15.405 12c0 2.31-1.001 4.507-2.748 6.031-.058.049-.12.098-.181.146 1.177.783 2.588 1.238 4.107 1.238C20.68 19.416 24 16.096 24 12c0-4.094-3.32-7.416-7.416-7.416zM12 6.174c-.096.075-.189.15-.28.231C10.156 7.764 9.169 9.765 9.169 12c0 2.236.987 4.236 2.551 5.595.09.08.185.158.28.232.096-.074.189-.152.28-.232 1.563-1.359 2.551-3.359 2.551-5.595 0-2.235-.987-4.236-2.551-5.595-.09-.08-.184-.156-.28-.231z"/></svg></div>
+          <div class="client-logo img-logo" title="British American Tobacco"><img src="BAT_logo.png" alt="BAT" style="height: 28px; width: auto; object-fit: contain;" /></div>
+          <div class="client-logo img-logo" title="Liberty Heritage"><img src="Liberty Heritage logo.png" alt="Liberty Heritage" style="height: 28px; width: auto; object-fit: contain;" /></div>
+          <div class="client-logo text-logo" title="Panpaper Mills">Panpaper Mills</div>
         </div>
       </div>
     </div>
